@@ -1,5 +1,6 @@
 import React from "react";
 import RegisterEmployee from "./RegisterEmployee.jsx";
+import Clock from "./Clock.jsx";
 import { supabase } from "./supabase.js";
 
 export default function App() {
@@ -29,7 +30,7 @@ export default function App() {
           .maybeSingle();
 
         if (error) setMsg("Error checking role: " + error.message);
-        setRole(data?.role || null);
+        setRole(data?.role || "employee"); // default employee if not found
       }
 
       setLoading(false);
@@ -67,16 +68,17 @@ export default function App() {
 
       {msg && <p>{msg}</p>}
 
-      {user && role === "admin" ? (
-        <RegisterEmployee />
-      ) : user ? (
-        <div style={{ marginTop: 10 }}>
-          <b>Access denied.</b> You are not an admin.
-        </div>
+      {!user ? (
+        <p>Please log in.</p>
+      ) : role === "admin" ? (
+        <>
+          <RegisterEmployee />
+          <p style={{ marginTop: 10 }}>
+            (Admin can register employees. Employees use Clock In/Out.)
+          </p>
+        </>
       ) : (
-        <div style={{ marginTop: 10 }}>
-          Please log in to access admin tools.
-        </div>
+        <Clock email={user.email} />
       )}
     </div>
   );
