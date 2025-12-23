@@ -3,13 +3,13 @@ import { supabase } from "./supabase.js";
 
 export default function RegisterEmployee() {
   const [employeeNo, setEmployeeNo] = useState("");
-  const [name, setName] = useState("");
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
   const register = async () => {
     setMessage("");
-    if (!employeeNo.trim() || !name.trim() || !email.trim()) {
+    if (!employeeNo.trim() || !fullName.trim() || !email.trim()) {
       setMessage("Please fill in Employee No, Full Name, and Email.");
       return;
     }
@@ -17,7 +17,7 @@ export default function RegisterEmployee() {
     const { error } = await supabase.from("employees").insert([
       {
         employee_no: employeeNo.trim(),
-        full_name: name.trim(),
+        full_name: fullName.trim(),
         email: email.trim().toLowerCase(),
         role: "employee"
       }
@@ -27,7 +27,7 @@ export default function RegisterEmployee() {
     else {
       setMessage("Employee registered successfully!");
       setEmployeeNo("");
-      setName("");
+      setFullName("");
       setEmail("");
     }
   };
@@ -43,7 +43,7 @@ export default function RegisterEmployee() {
 
       <div style={{ marginBottom: 10 }}>
         <div>Full Name</div>
-        <input value={name} onChange={(e) => setName(e.target.value)} />
+        <input value={fullName} onChange={(e) => setFullName(e.target.value)} />
       </div>
 
       <div style={{ marginBottom: 10 }}>
