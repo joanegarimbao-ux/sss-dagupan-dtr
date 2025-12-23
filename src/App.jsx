@@ -1,6 +1,7 @@
 import React from "react";
 import RegisterEmployee from "./RegisterEmployee.jsx";
 import Clock from "./Clock.jsx";
+import AdminDailyCode from "./AdminDailyCode.jsx";
 import { supabase } from "./supabase.js";
 
 export default function App() {
@@ -30,7 +31,7 @@ export default function App() {
           .maybeSingle();
 
         if (error) setMsg("Error checking role: " + error.message);
-        setRole(data?.role || "employee"); // default employee if not found
+        setRole(data?.role || "employee");
       }
 
       setLoading(false);
@@ -72,10 +73,8 @@ export default function App() {
         <p>Please log in.</p>
       ) : role === "admin" ? (
         <>
+          <AdminDailyCode />
           <RegisterEmployee />
-          <p style={{ marginTop: 10 }}>
-            (Admin can register employees. Employees use Clock In/Out.)
-          </p>
         </>
       ) : (
         <Clock email={user.email} />
