@@ -1,5 +1,5 @@
 import React from "react";
-import RegisterEmployee from "./RegisterEmployee";
+import RegisterEmployee from "./RegisterEmployee.jsx";
 
 export default function App() {
   return (
